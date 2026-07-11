@@ -1,4 +1,4 @@
-# ytengine
+# nodeytapi
 
 A TypeScript wrapper for the Python library **pytubefix**.
 
@@ -18,12 +18,12 @@ It lets Node.js developers download YouTube videos, audio, fetch metadata and av
 ## Installation
 
 ```bash
-npm install ytengine
+npm install nodeytapi
 ```
 
 Python 3 is required.
 
-During installation, ytengine will automatically create an isolated Python virtual environment and install **pytubefix** inside it, so it won't mess with your global Python setup.
+During installation, nodeytapi will automatically create an isolated Python virtual environment and install **pytubefix** inside it, so it won't mess with your global Python setup.
 
 If it fails, you can install it manually:
 
@@ -38,7 +38,7 @@ More installation details are available in [docs/INSTALL.md](docs/INSTALL.md).
 ## Quick Start
 
 ```ts
-import { YouTube } from "ytengine";
+import { YouTube } from "nodeytapi";
 
 const yt = new YouTube(
     "https://www.youtube.com/watch?v=dQw4w9WgXcQ"

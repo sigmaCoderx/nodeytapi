@@ -1,5 +1,5 @@
 {
-  "name": "ytengine",
+  "name": "nodeytapi",
   "type": "module",
   "version": "1.0.0",
   "description": "A TypeScript wrapper for the Python library pytubefix.",
@@ -43,11 +43,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sigmaCoderx/ytengine.git"
+    "url": "git+https://github.com/sigmaCoderx/nodeytapi.git"
   },
-  "homepage": "https://github.com/sigmaCoderx/ytengine",
+  "homepage": "https://github.com/sigmaCoderx/nodeytapi",
   "bugs": {
-    "url": "https://github.com/sigmaCoderx/ytengine/issues"
+    "url": "https://github.com/sigmaCoderx/nodeytapi/issues"
   },
   "author": {
     "name": "flippedCoin",
