@@ -1,0 +1,66 @@
+{
+  "name": "ytengine",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A TypeScript wrapper for the Python library pytubefix.",
+  "main": "dist-cjs/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist-cjs/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "dist-cjs",
+    "scripts",
+    "docs"
+  ],
+  "scripts": {
+    "build:esm": "tsc -p tsconfig.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build": "npm run build:esm && npm run build:cjs && node scripts/copy-python.js && node scripts/finalize-cjs.js",
+    "postinstall": "node scripts/postinstall.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "youtube",
+    "youtube-scraper",
+    "youtube-dl",
+    "youtube-search",
+    "youtube-downloader",
+    "youtube-api",
+    "yt-dlp",
+    "pytubefix",
+    "sdk",
+    "typescript",
+    "nodejs",
+    "python"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sigmaCoderx/ytengine.git"
+  },
+  "homepage": "https://github.com/sigmaCoderx/ytengine",
+  "bugs": {
+    "url": "https://github.com/sigmaCoderx/ytengine/issues"
+  },
+  "author": {
+    "name": "flippedCoin",
+    "telegram": "https://t.me/neuralp"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.11.0"
+  }
+}
