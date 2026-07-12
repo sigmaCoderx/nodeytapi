@@ -1,7 +1,7 @@
 {
   "name": "nodeytapi",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A TypeScript wrapper for the Python library pytubefix.",
   "main": "dist-cjs/index.cjs",
   "module": "dist/index.js",
