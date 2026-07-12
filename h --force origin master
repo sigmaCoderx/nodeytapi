@@ -1,0 +1,14 @@
+* [33m9ddbbdc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m Refactor project
+* [33mad94506[m[33m ([m[1;33mtag: [m[1;33mv1.0.1[m[33m)[m 1.0.1
+[31m|[m * [33m27e1278[m[33m ([m[1;31morigin/master[m[33m)[m update git clone instruction
+[31m|[m * [33m14ccc14[m update package name
+[31m|[m * [33mcc892ff[m update package name
+[31m|[m * [33mc9d0891[m update package name
+[31m|[m * [33m0dc922b[m update package name
+[31m|[m * [33m54d8432[m update the package name
+[31m|[m * [33me2dadd1[m update repo cloning instruction
+[31m|[m * [33m75e6043[m Correct README formatting for installation steps
+[31m|[m * [33m20e3e6e[m clone instruction update
+[31m|[m[31m/[m  
+* [33m8794791[m initial commit
+* [33mc17c804[m initial commit
