@@ -19,13 +19,13 @@ def sanitize_filename(filename: str) -> str:
     sanitized = _INVALID_CHARS_PATTERN.sub("_", filename)
     sanitized = sanitized.strip(" .")
     if not sanitized:
-        sanitized = "ytengine_download"
+        sanitized = "nodeytapi_download"
     return sanitized[:200]
 
 
 def build_client(url: str) -> PyTubeFixYouTube:
     """Construct a pytubefix YouTube client, translating its errors into
-    ytengine's own exception types."""
+    nodeytapi's own exception types."""
     try:
         return PyTubeFixYouTube(url)
     except RegexMatchError:
