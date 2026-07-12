@@ -21,6 +21,22 @@ It lets Node.js developers download YouTube videos, audio, fetch metadata and av
 npm install nodeytapi
 ```
 
+### Clone the repository
+
+```bash
+git clone https://github.com/sigmaCoderx/nodeytapi.git
+```
+Navigate into the project:
+
+```bash
+cd nodeytapi
+```
+Install dependencies:
+```bash
+npm install
+```
+
+
 Python 3 is required.
 
 During installation, nodeytapi will automatically create an isolated Python virtual environment and install **pytubefix** inside it, so it won't mess with your global Python setup.
@@ -206,7 +222,7 @@ Every error is returned as a single JavaScript error.
 try {
     await yt.downloadVideo();
 } catch (err) {
-    if (err instanceof YTEngineError) {
+    if (err instanceof NodeYtApiError) {
         console.log(err.code);
         console.log(err.message);
     }

@@ -39,7 +39,7 @@ export interface DownloadResult {
  * A JavaScript Error thrown for every failure surfaced from the Python
  * execution engine. Raw Python tracebacks are never exposed to the caller.
  */
-export declare class YTEngineError extends Error {
+export declare class NodeYtApiError extends Error {
     readonly code: string;
     constructor(message: string, code: string);
 }
@@ -74,7 +74,7 @@ export declare class YouTube {
     /**
      * Private bridge: spawns the Python process, sends the action + payload,
      * parses JSON from stdout, and either resolves the data or throws a
-     * YTEngineError. This is the single point of contact with Python.
+     * NodeYtApiError. This is the single point of contact with Python.
      */
     private callBridge;
     private resolvePython;

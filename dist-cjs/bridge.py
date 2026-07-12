@@ -22,7 +22,7 @@ import os
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "py"))
 
-from exceptions import YTEngineError  # noqa: E402
+from exceptions import NodeYtApiError  # noqa: E402
 from info import get_info  # noqa: E402
 from streams import get_streams  # noqa: E402
 from download import download  # noqa: E402
@@ -57,12 +57,12 @@ def main() -> None:
         elif action == "download":
             result = download(url, options)
         else:
-            raise YTEngineError(f"Unknown action: {action}", "UNKNOWN_ACTION")
+            raise NodeYtApiError(f"Unknown action: {action}", "UNKNOWN_ACTION")
 
         emit({"error": False, "data": result})
         sys.exit(0)
 
-    except YTEngineError as exc:
+    except NodeYtApiError as exc:
         emit({"error": True, "message": exc.message, "code": exc.code})
         sys.exit(1)
     except Exception as exc:  # noqa: BLE001 - final safety net, never leak tracebacks

@@ -28,36 +28,36 @@ function detectPython() {
 
 function createVenvAndInstall(pythonCommand) {
   if (!pythonCommand) {
-    console.warn('[ytengine] Python 3 was not found on PATH. Install Python 3 first, then reinstall ytengine.');
+    console.warn('[nodeytapi] Python 3 was not found on PATH. Install Python 3 first, then reinstall nodeytapi.');
     return;
   }
 
-  console.log('[ytengine] Creating Python virtual environment...');
+  console.log('[nodeytapi] Creating Python virtual environment...');
   const venvResult = run(pythonCommand, ['-m', 'venv', '.venv']);
-  
+
   if (venvResult.status !== 0) {
-    console.warn('[ytengine] Failed to create virtual environment.');
+    console.warn('[nodeytapi] Failed to create virtual environment.');
     console.warn(venvResult.stderr || '');
-    console.warn('[ytengine] Falling back to global installation...');
+    console.warn('[nodeytapi] Falling back to global installation...');
     const fallbackResult = run(pythonCommand, ['-m', 'pip', 'install', 'pytubefix>=6.5.0']);
     if (fallbackResult.status === 0) {
-      console.log('[ytengine] Installed pytubefix globally.');
+      console.log('[nodeytapi] Installed pytubefix globally.');
     } else {
-      console.warn('[ytengine] Failed to install pytubefix globally too.');
+      console.warn('[nodeytapi] Failed to install pytubefix globally too.');
     }
     return;
   }
 
-  console.log('[ytengine] Installing pytubefix inside virtual environment...');
+  console.log('[nodeytapi] Installing pytubefix inside virtual environment...');
   const isWin = os.platform() === 'win32';
   const venvPython = isWin ? path.join(venvDir, 'Scripts', 'python') : path.join(venvDir, 'bin', 'python');
 
   const pipResult = run(venvPython, ['-m', 'pip', 'install', 'pytubefix>=6.5.0']);
-  
+
   if (pipResult.status === 0) {
-    console.log('[ytengine] Installed pytubefix successfully in local .venv.');
+    console.log('[nodeytapi] Installed pytubefix successfully in local .venv.');
   } else {
-    console.warn('[ytengine] Failed to install pytubefix in virtual environment.');
+    console.warn('[nodeytapi] Failed to install pytubefix in virtual environment.');
     console.warn(pipResult.stderr || '');
   }
 }

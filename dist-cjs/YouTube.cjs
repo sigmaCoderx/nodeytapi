@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.YouTube = exports.YTEngineError = void 0;
+exports.YouTube = exports.NodeYtApiError = void 0;
 const child_process_1 = require("child_process");
 const path = __importStar(require("path"));
 const url_1 = require("url");
@@ -48,15 +48,15 @@ const sourceDir = typeof __dirname !== "undefined"
  * A JavaScript Error thrown for every failure surfaced from the Python
  * execution engine. Raw Python tracebacks are never exposed to the caller.
  */
-class YTEngineError extends Error {
+class NodeYtApiError extends Error {
     constructor(message, code) {
         super(message);
-        this.name = "YTEngineError";
+        this.name = "NodeYtApiError";
         this.code = code;
-        Object.setPrototypeOf(this, YTEngineError.prototype);
+        Object.setPrototypeOf(this, NodeYtApiError.prototype);
     }
 }
-exports.YTEngineError = YTEngineError;
+exports.NodeYtApiError = NodeYtApiError;
 const YOUTUBE_URL_PATTERN = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|shorts\/|embed\/)|youtu\.be\/)[\w-]+/i;
 const venvPython = process.platform === "win32"
     ? path.join(sourceDir, "..", ".venv", "Scripts", "python.exe")
@@ -74,10 +74,10 @@ class YouTube {
         this.cachedInfo = null;
         this.pythonExecutable = null;
         if (!url || typeof url !== "string") {
-            throw new YTEngineError(`Invalid YouTube URL: ${url}`, "INVALID_URL");
+            throw new NodeYtApiError(`Invalid YouTube URL: ${url}`, "INVALID_URL");
         }
         if (!YOUTUBE_URL_PATTERN.test(url.trim())) {
-            throw new YTEngineError(`Invalid YouTube URL: ${url}`, "INVALID_URL");
+            throw new NodeYtApiError(`Invalid YouTube URL: ${url}`, "INVALID_URL");
         }
         this.url = url.trim();
     }
@@ -97,7 +97,7 @@ class YouTube {
     /** Advanced download with explicit stream selection via itag. */
     async download(options) {
         if (options.itag === undefined) {
-            throw new YTEngineError("download() requires an itag option", "MISSING_ITAG");
+            throw new NodeYtApiError("download() requires an itag option", "MISSING_ITAG");
         }
         return this.callBridge("download", { mode: "custom", ...options });
     }
@@ -111,7 +111,7 @@ class YouTube {
     }
     ensureInfoCached(prop) {
         if (!this.cachedInfo) {
-            throw new YTEngineError(`Cannot read "${prop}" before getInfo() has been called. Call "await yt.getInfo()" first.`, "INFO_NOT_LOADED");
+            throw new NodeYtApiError(`Cannot read "${prop}" before getInfo() has been called. Call "await yt.getInfo()" first.`, "INFO_NOT_LOADED");
         }
     }
     get title() {
@@ -149,7 +149,7 @@ class YouTube {
     /**
      * Private bridge: spawns the Python process, sends the action + payload,
      * parses JSON from stdout, and either resolves the data or throws a
-     * YTEngineError. This is the single point of contact with Python.
+     * NodeYtApiError. This is the single point of contact with Python.
      */
     async callBridge(action, options) {
         const executable = await this.resolvePython();
@@ -169,11 +169,11 @@ class YouTube {
                 stderr += chunk.toString();
             });
             child.on("error", (err) => {
-                reject(new YTEngineError(`Failed to start Python process: ${err.message}`, "PROCESS_ERROR"));
+                reject(new NodeYtApiError(`Failed to start Python process: ${err.message}`, "PROCESS_ERROR"));
             });
             child.on("close", () => {
                 if (!stdout.trim()) {
-                    reject(new YTEngineError(stderr || "No response from Python bridge", "EMPTY_RESPONSE"));
+                    reject(new NodeYtApiError(stderr || "No response from Python bridge", "EMPTY_RESPONSE"));
                     return;
                 }
                 let parsed;
@@ -181,11 +181,11 @@ class YouTube {
                     parsed = JSON.parse(stdout.trim());
                 }
                 catch {
-                    reject(new YTEngineError("Failed to parse response from Python bridge", "PARSE_ERROR"));
+                    reject(new NodeYtApiError("Failed to parse response from Python bridge", "PARSE_ERROR"));
                     return;
                 }
                 if (parsed.error) {
-                    reject(new YTEngineError(parsed.message, parsed.code));
+                    reject(new NodeYtApiError(parsed.message, parsed.code));
                     return;
                 }
                 if (action === "download") {
@@ -206,7 +206,7 @@ class YouTube {
                 return candidate;
             }
         }
-        throw new YTEngineError("No Python executable found. Please install Python3 and ensure it is on your PATH.", "PYTHON_NOT_FOUND");
+        throw new NodeYtApiError("No Python executable found. Please install Python3 and ensure it is on your PATH.", "PYTHON_NOT_FOUND");
     }
     checkExecutable(command) {
         return new Promise((resolve) => {
